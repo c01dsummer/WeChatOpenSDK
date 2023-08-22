@@ -1,0 +1,5 @@
+module WeChatOpenSDK {
+    header "./WeChatOpenSDK-Brigding-Header.h"
+    link WechatOpenSDK
+    export *
+}

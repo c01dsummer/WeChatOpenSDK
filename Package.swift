@@ -16,11 +16,11 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "WeChatOpenSDK",
-            dependencies: ["WeChatOpenSDKFramework"],
-            publicHeadersPath: "include"
+            dependencies: [],
+            path: "Sources"
         ),
         .binaryTarget(
             name: "WeChatOpenSDKFramework",
-            path: "./Artifacts/WechatOpenSDK-XCFramework.xcframework")
+            path: "Artifacts/WechatOpenSDK-XCFramework.xcframework")
     ]
 )

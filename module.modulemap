@@ -1,6 +1,0 @@
-module WeChatOpenSDK {  
-    header "Artifacts/WechatOpenSDK-XCFramework.xcframework/WXApi.h"
-    header "Artifacts/WechatOpenSDK-XCFramework.xcframework/WXApiObject.h"
-    header "Artifacts/WechatOpenSDK-XCFramework.xcframework/WechatAuthSDK.h"
-    export *
-}

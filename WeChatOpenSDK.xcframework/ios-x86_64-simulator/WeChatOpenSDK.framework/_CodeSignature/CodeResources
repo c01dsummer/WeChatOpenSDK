@@ -12,21 +12,25 @@
 		<data>
 		xhc5Fvv99/tTn9KHXVKCC6oU5ow=
 		</data>
+		<key>Headers/WeChatOpenSDK.h</key>
+		<data>
+		VL0XHUqnOmM2TCckEwXpUbfUU/8=
+		</data>
 		<key>Headers/WechatAuthSDK.h</key>
 		<data>
 		6beFSxsQAVAU2YA49kPcCypShO0=
 		</data>
-		<key>Headers/WechatOpenSDK.h</key>
-		<data>
-		m1+BBmj8FuFXE/NJKqJkz5XZa0E=
-		</data>
 		<key>Info.plist</key>
 		<data>
-		kRvSet6zD/J7YRaIsLEJP/J2AQg=
+		EK2v8eqM0op9yQTyukzvkll8Ivs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		enggjSvxBopavzK4Fu0+zC2G2ds=
+		ruXBmznCO/yC1J0ud2gBwVO9Gcg=
+		</data>
+		<key>README.txt</key>
+		<data>
+		j97u0fgvZrpJJrRGMQ31cOAH3Kc=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -53,6 +57,17 @@
 			6KC/GLp2Ipj0nOUhRQdzhGS7mG8SpeVZ9xvAZIhMkYQ=
 			</data>
 		</dict>
+		<key>Headers/WeChatOpenSDK.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			VL0XHUqnOmM2TCckEwXpUbfUU/8=
+			</data>
+			<key>hash2</key>
+			<data>
+			FoRWAnBVE+yc7c9gNI+Cs5AlGbmQ6BIcaJzO7D7MwcA=
+			</data>
+		</dict>
 		<key>Headers/WechatAuthSDK.h</key>
 		<dict>
 			<key>hash</key>
@@ -64,26 +79,26 @@
 			eX6ctZW1kLlhw/hTNNWOJPj0BpgwHGwje4CjdGBKA+c=
 			</data>
 		</dict>
-		<key>Headers/WechatOpenSDK.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			m1+BBmj8FuFXE/NJKqJkz5XZa0E=
-			</data>
-			<key>hash2</key>
-			<data>
-			EPrm/Uwf/sNbNw+HOxO8J1hnHYF7kHh7NQQB0VCD2Mc=
-			</data>
-		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			enggjSvxBopavzK4Fu0+zC2G2ds=
+			ruXBmznCO/yC1J0ud2gBwVO9Gcg=
 			</data>
 			<key>hash2</key>
 			<data>
-			MTS14FNjwrA1CIKEefo1EfrPqizIELy9KsXmKhLdjBk=
+			dIZwS/Bxa3viMPkjPKzyrEHSnn6kjcDs/t0A8JrtEK8=
+			</data>
+		</dict>
+		<key>README.txt</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			j97u0fgvZrpJJrRGMQ31cOAH3Kc=
+			</data>
+			<key>hash2</key>
+			<data>
+			eAtN+0y7ODWqsPWcWE908YpiHT8/K3ZjRG0r+aoBfSk=
 			</data>
 		</dict>
 	</dict>

@@ -16,7 +16,8 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .binaryTarget(
             name: "WeChatOpenSDK",
-            path: "WeChatOpenSDK.xcframework"
+            url: "https://github.com/c01dsummer/WeChatOpenSDK/releases/download/2.0.2/WeChatOpenSDK.xcframework.zip",
+            checksum: "3be12103dc8a206d4c7e2cbe1b69102193d4ad3e9b8d002c2cc82a261b0c10b9"
         )
     ]
 )

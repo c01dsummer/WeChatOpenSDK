@@ -14,7 +14,7 @@
 
 ```
 dependencies: [
-    .package(url: "https://github.com/c01dsummer/WeChatOpenSDK.git", .upToNextMajor(from: "2.0.2"))
+    .package(url: "https://github.com/c01dsummer/WeChatOpenSDK.git", branch: "main")
 ]
 ```
 

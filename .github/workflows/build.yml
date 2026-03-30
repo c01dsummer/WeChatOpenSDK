@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       sdk_url:
-        description: 'WeChatSDK download URL (leave empty to use CocoaPods source)'
+        description: 'WeChatSDK download URL (leave empty to use default: https://dldir1.qq.com/WechatWebDev/opensdk/OpenSDK2.0.5.zip)'
         required: false
 
 jobs:
@@ -19,15 +19,31 @@ jobs:
           if [ -z "$SDK_URL" ]; then
             SDK_URL="https://dldir1.qq.com/WechatWebDev/opensdk/OpenSDK2.0.5.zip"
           fi
+
+          # Restrict SDK_URL to trusted HTTPS host
+          if ! echo "$SDK_URL" | grep -E '^https://dldir1\.qq\.com/.*\.zip$' > /dev/null; then
+            echo "Error: sdk_url must be an HTTPS URL on dldir1.qq.com ending with .zip"
+            exit 1
+          fi
+
           echo "Downloading SDK from: $SDK_URL"
           curl -L --fail --retry 3 -o WeChatSDK.zip "$SDK_URL"
           unzip -o WeChatSDK.zip -d WeChatSDK_tmp
           echo "Downloaded contents:"
           find WeChatSDK_tmp -type f
           mkdir -p Library
-          find WeChatSDK_tmp \( -name "*.a" -o -name "*.h" \) -type f | while read f; do
+          find WeChatSDK_tmp \( -name "*.a" -o -name "*.h" \) -type f -print0 | while IFS= read -r -d '' f; do
             cp "$f" Library/
           done
+
+          # Verify required files exist
+          for required in libWeChatSDK.a WXApi.h WXApiObject.h WechatAuthSDK.h; do
+            if [ ! -f "Library/$required" ]; then
+              echo "Error: required file $required not found in SDK"
+              exit 1
+            fi
+          done
+
           echo "Library contents:"
           ls -la Library/
           rm -rf WeChatSDK.zip WeChatSDK_tmp

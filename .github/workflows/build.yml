@@ -8,11 +8,8 @@ on:
   workflow_dispatch:
     inputs:
       sdk_url:
-        description: 'WeChatSDK download URL (leave empty to use default)'
+        description: 'WeChatSDK download URL (leave empty to use CocoaPods source)'
         required: false
-
-env:
-  DEFAULT_SDK_URL: https://dldir1.qq.com/WechatWebDev/opensdk/cocoapods/OpenSDK2.0.2.zip
 
 jobs:
   build:
@@ -23,11 +20,17 @@ jobs:
       - name: Download WeChatSDK
         run: |
           SDK_URL="${{ inputs.sdk_url }}"
-          if [ -z "$SDK_URL" ]; then
-            SDK_URL="${{ env.DEFAULT_SDK_URL }}"
+          if [ -n "$SDK_URL" ]; then
+            echo "Downloading SDK from: $SDK_URL"
+            curl -L --fail --retry 3 -o WeChatSDK.zip "$SDK_URL"
+          else
+            echo "Downloading SDK via CocoaPods spec..."
+            brew install cocoapods 2>/dev/null || true
+            pod spec cat WechatOpenSDK > /tmp/podspec.json
+            SDK_URL=$(ruby -rjson -e 'puts JSON.parse(File.read("/tmp/podspec.json"))["source"]["http"]')
+            echo "Resolved SDK URL: $SDK_URL"
+            curl -L --fail --retry 3 -o WeChatSDK.zip "$SDK_URL"
           fi
-          echo "Downloading SDK from: $SDK_URL"
-          curl -L -o WeChatSDK.zip "$SDK_URL"
           unzip -o WeChatSDK.zip -d WeChatSDK_tmp
           echo "Downloaded contents:"
           find WeChatSDK_tmp -type f

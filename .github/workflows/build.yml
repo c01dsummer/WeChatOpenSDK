@@ -32,6 +32,10 @@ jobs:
           find WeChatSDK_tmp \( -name "*.a" -o -name "*.h" \) -type f | while read f; do
             cp "$f" Library/
           done
+          # Create README.txt if not present (required by Xcode project)
+          if [ ! -f Library/README.txt ]; then
+            touch Library/README.txt
+          fi
           echo "Library contents:"
           ls -la Library/
           rm -rf WeChatSDK.zip WeChatSDK_tmp

@@ -1,0 +1,40 @@
+name: Build XCFramework
+
+on:
+  workflow_dispatch:
+    inputs:
+      sdk_url:
+        description: 'WeChatSDK download URL (leave empty to use existing Library files)'
+        required: false
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download WeChatSDK
+        if: inputs.sdk_url != ''
+        run: |
+          curl -L -o WeChatSDK.zip "${{ inputs.sdk_url }}"
+          unzip -o WeChatSDK.zip -d WeChatSDK_tmp
+          mkdir -p WeChatOpenSDK/Library
+          find WeChatSDK_tmp -name "*.a" -o -name "*.h" | while read f; do
+            cp "$f" WeChatOpenSDK/Library/
+          done
+          rm -rf WeChatSDK.zip WeChatSDK_tmp
+
+      - name: Build XCFramework
+        run: bash create-xcframework.sh
+
+      - name: Upload XCFramework
+        uses: actions/upload-artifact@v4
+        with:
+          name: WeChatOpenSDK.xcframework
+          path: build/WeChatOpenSDK.xcframework
+
+      - name: Upload zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: WeChatOpenSDK.xcframework.zip
+          path: WeChatOpenSDK.xcframework.zip

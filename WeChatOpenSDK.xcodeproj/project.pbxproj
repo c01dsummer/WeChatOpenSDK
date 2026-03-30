@@ -10,7 +10,7 @@
 		8CDE110C2A9C946A00280C22 /* WeChatOpenSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CDE110B2A9C946A00280C22 /* WeChatOpenSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8CDE111C2A9C95DB00280C22 /* WXApi.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CDE11172A9C95DB00280C22 /* WXApi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8CDE111D2A9C95DB00280C22 /* WXApiObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CDE11182A9C95DB00280C22 /* WXApiObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8CDE111E2A9C95DB00280C22 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8CDE11192A9C95DB00280C22 /* README.txt */; };
+
 		8CDE111F2A9C95DB00280C22 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CDE111A2A9C95DB00280C22 /* libWeChatSDK.a */; };
 		8CDE11202A9C95DB00280C22 /* WechatAuthSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CDE111B2A9C95DB00280C22 /* WechatAuthSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -21,7 +21,7 @@
 		8CDE11132A9C959D00280C22 /* create-xcframework.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "create-xcframework.sh"; sourceTree = "<group>"; };
 		8CDE11172A9C95DB00280C22 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		8CDE11182A9C95DB00280C22 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		8CDE11192A9C95DB00280C22 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+
 		8CDE111A2A9C95DB00280C22 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		8CDE111B2A9C95DB00280C22 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,7 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				8CDE111A2A9C95DB00280C22 /* libWeChatSDK.a */,
-				8CDE11192A9C95DB00280C22 /* README.txt */,
+
 				8CDE111B2A9C95DB00280C22 /* WechatAuthSDK.h */,
 				8CDE11172A9C95DB00280C22 /* WXApi.h */,
 				8CDE11182A9C95DB00280C22 /* WXApiObject.h */,
@@ -149,7 +149,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CDE111E2A9C95DB00280C22 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

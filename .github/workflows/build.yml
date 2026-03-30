@@ -20,17 +20,11 @@ jobs:
       - name: Download WeChatSDK
         run: |
           SDK_URL="${{ inputs.sdk_url }}"
-          if [ -n "$SDK_URL" ]; then
-            echo "Downloading SDK from: $SDK_URL"
-            curl -L --fail --retry 3 -o WeChatSDK.zip "$SDK_URL"
-          else
-            echo "Downloading SDK via CocoaPods spec..."
-            brew install cocoapods 2>/dev/null || true
-            pod spec cat WechatOpenSDK > /tmp/podspec.json
-            SDK_URL=$(ruby -rjson -e 'puts JSON.parse(File.read("/tmp/podspec.json"))["source"]["http"]')
-            echo "Resolved SDK URL: $SDK_URL"
-            curl -L --fail --retry 3 -o WeChatSDK.zip "$SDK_URL"
+          if [ -z "$SDK_URL" ]; then
+            SDK_URL="https://dldir1.qq.com/WechatWebDev/opensdk/OpenSDK2.0.5.zip"
           fi
+          echo "Downloading SDK from: $SDK_URL"
+          curl -L --fail --retry 3 -o WeChatSDK.zip "$SDK_URL"
           unzip -o WeChatSDK.zip -d WeChatSDK_tmp
           echo "Downloaded contents:"
           find WeChatSDK_tmp -type f

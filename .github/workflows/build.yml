@@ -29,8 +29,10 @@ jobs:
           echo "Downloading SDK from: $SDK_URL"
           curl -L -o WeChatSDK.zip "$SDK_URL"
           unzip -o WeChatSDK.zip -d WeChatSDK_tmp
+          echo "Downloaded contents:"
+          find WeChatSDK_tmp -type f
           mkdir -p Library
-          find WeChatSDK_tmp -name "*.a" -o -name "*.h" | while read f; do
+          find WeChatSDK_tmp \( -name "*.a" -o -name "*.h" \) -type f | while read f; do
             cp "$f" Library/
           done
           echo "Library contents:"

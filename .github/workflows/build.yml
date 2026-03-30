@@ -1,6 +1,10 @@
 name: Build XCFramework
 
 on:
+  push:
+    branches:
+      - main
+      - 'claude/**'
   workflow_dispatch:
     inputs:
       sdk_url:

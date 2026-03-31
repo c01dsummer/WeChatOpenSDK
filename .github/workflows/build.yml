@@ -1,0 +1,93 @@
+name: Build XCFramework
+
+on:
+  workflow_dispatch:
+    inputs:
+      sdk_url:
+        description: 'WeChatSDK download URL (leave empty to use default: https://dldir1.qq.com/WechatWebDev/opensdk/OpenSDK2.0.5.zip)'
+        required: false
+      sdk_checksum:
+        description: 'Expected SHA-256 checksum of the SDK zip (leave empty to use default)'
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download WeChatSDK
+        run: |
+          SDK_URL="${{ inputs.sdk_url }}"
+          SDK_CHECKSUM="${{ inputs.sdk_checksum }}"
+          DEFAULT_URL="https://dldir1.qq.com/WechatWebDev/opensdk/OpenSDK2.0.5.zip"
+          DEFAULT_CHECKSUM="b610b8585dc1cbb58efab38e0f9dca6abf2449f3aecdb23e4e238df093382bab"
+
+          if [ -z "$SDK_URL" ]; then
+            SDK_URL="$DEFAULT_URL"
+          fi
+          if [ -z "$SDK_CHECKSUM" ]; then
+            SDK_CHECKSUM="$DEFAULT_CHECKSUM"
+          fi
+
+          # Restrict SDK_URL to trusted HTTPS host
+          if ! echo "$SDK_URL" | grep -E '^https://dldir1\.qq\.com/.*\.zip$' > /dev/null; then
+            echo "Error: sdk_url must be an HTTPS URL on dldir1.qq.com ending with .zip"
+            exit 1
+          fi
+
+          echo "Downloading SDK from: $SDK_URL"
+          curl -L --fail --retry 3 -o WeChatSDK.zip "$SDK_URL"
+
+          # Verify checksum
+          ACTUAL_CHECKSUM=$(shasum -a 256 WeChatSDK.zip | awk '{print $1}')
+          if [ "$ACTUAL_CHECKSUM" != "$SDK_CHECKSUM" ]; then
+            echo "Error: checksum mismatch"
+            echo "  expected: $SDK_CHECKSUM"
+            echo "  actual:   $ACTUAL_CHECKSUM"
+            exit 1
+          fi
+
+          # Validate ZIP entries for path traversal
+          if unzip -Z1 WeChatSDK.zip | grep -E '(^/|(^|/)\.\.(\/|$))' > /dev/null; then
+            echo "Error: ZIP archive contains unsafe paths"
+            exit 1
+          fi
+
+          unzip -o WeChatSDK.zip -d WeChatSDK_tmp
+          echo "Downloaded contents:"
+          find WeChatSDK_tmp -type f
+          mkdir -p Library
+          find WeChatSDK_tmp \( -name "*.a" -o -name "*.h" \) -type f -print0 | while IFS= read -r -d '' f; do
+            cp "$f" Library/
+          done
+
+          # Verify required files exist
+          for required in libWeChatSDK.a WXApi.h WXApiObject.h WechatAuthSDK.h; do
+            if [ ! -f "Library/$required" ]; then
+              echo "Error: required file $required not found in SDK"
+              exit 1
+            fi
+          done
+
+          echo "Library contents:"
+          ls -la Library/
+          rm -rf WeChatSDK.zip WeChatSDK_tmp
+
+      - name: Build XCFramework
+        run: bash -euo pipefail create-xcframework.sh
+
+      - name: Upload XCFramework
+        uses: actions/upload-artifact@v4
+        with:
+          name: WeChatOpenSDK.xcframework
+          path: build/WeChatOpenSDK.xcframework
+
+      - name: Upload zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: WeChatOpenSDK.xcframework.zip
+          path: WeChatOpenSDK.xcframework.zip

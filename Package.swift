@@ -17,8 +17,6 @@ let package = Package(
         .binaryTarget(
             name: "WeChatOpenSDK",
             url: "https://github.com/c01dsummer/WeChatOpenSDK/releases/download/2.0.5/WeChatOpenSDK.xcframework.zip",
-            // TODO: Update checksum after creating 2.0.5 release
-            // Run: swift package compute-checksum WeChatOpenSDK.xcframework.zip
             checksum: "3be12103dc8a206d4c7e2cbe1b69102193d4ad3e9b8d002c2cc82a261b0c10b9"
         )
     ]

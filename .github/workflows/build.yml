@@ -11,7 +11,7 @@ on:
         required: false
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -79,6 +79,23 @@ jobs:
 
       - name: Build XCFramework
         run: bash -euo pipefail create-xcframework.sh
+
+      - name: Update Package.swift checksum
+        run: |
+          CHECKSUM=$(swift package compute-checksum WeChatOpenSDK.xcframework.zip)
+          echo "Computed checksum: $CHECKSUM"
+          sed -i '' "s/checksum: \".*\"/checksum: \"$CHECKSUM\"/" Package.swift
+          echo "Updated Package.swift:"
+          grep checksum Package.swift
+
+      - name: Commit checksum update
+        run: |
+          git diff --quiet Package.swift && echo "No checksum change" && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Package.swift
+          git commit -m "Update Package.swift checksum"
+          git push
 
       - name: Upload XCFramework
         uses: actions/upload-artifact@v4

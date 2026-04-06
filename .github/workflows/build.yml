@@ -26,11 +26,11 @@ jobs:
         run: |
           VERSION="${{ inputs.version }}"
           SDK_URL="${{ inputs.sdk_url }}"
-          DEFAULT_URL="https://dldir1.qq.com/WechatWebDev/opensdk/OpenSDK2.0.5.zip"
+          SDK_CHECKSUM="${{ inputs.sdk_checksum }}"
 
-          # If version differs from default but sdk_url is not provided, abort
-          if [ "$VERSION" != "2.0.5" ] && [ -z "$SDK_URL" ]; then
-            echo "Error: version '$VERSION' differs from default (2.0.5), you must also provide sdk_url and sdk_checksum"
+          # If version differs from default, both sdk_url and sdk_checksum must be provided
+          if [ "$VERSION" != "2.0.5" ] && { [ -z "$SDK_URL" ] || [ -z "$SDK_CHECKSUM" ]; }; then
+            echo "Error: version '$VERSION' differs from default (2.0.5), you must provide both sdk_url and sdk_checksum"
             exit 1
           fi
 
@@ -95,11 +95,33 @@ jobs:
       - name: Build XCFramework
         run: bash -euo pipefail create-xcframework.sh
 
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ inputs.version }}"
+          if gh release view "$VERSION" > /dev/null 2>&1; then
+            echo "Release $VERSION already exists, uploading asset with overwrite"
+            gh release upload "$VERSION" WeChatOpenSDK.xcframework.zip --clobber
+          else
+            gh release create "$VERSION" \
+              --title "WeChatOpenSDK $VERSION" \
+              --notes "Built from WeChat SDK $VERSION" \
+              --target ${{ github.ref_name }} \
+              WeChatOpenSDK.xcframework.zip
+          fi
+
       - name: Update Package.swift and commit
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${{ inputs.version }}"
           RELEASE_URL="https://github.com/${{ github.repository }}/releases/download/${VERSION}/WeChatOpenSDK.xcframework.zip"
-          CHECKSUM=$(swift package compute-checksum WeChatOpenSDK.xcframework.zip)
+
+          # Download release asset and compute checksum from it
+          curl -L --fail -o release.zip "$RELEASE_URL"
+          CHECKSUM=$(swift package compute-checksum release.zip)
+          rm -f release.zip
 
           echo "Release URL: $RELEASE_URL"
           echo "Computed checksum: $CHECKSUM"
@@ -118,18 +140,7 @@ jobs:
           git commit -m "Update Package.swift for $VERSION release"
           git push origin HEAD:${{ github.ref_name }}
 
-      - name: Create release and upload artifact
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          VERSION="${{ inputs.version }}"
-          gh release create "$VERSION" \
-            --title "WeChatOpenSDK $VERSION" \
-            --notes "Built from WeChat SDK $VERSION" \
-            --target ${{ github.ref_name }} \
-            WeChatOpenSDK.xcframework.zip
-
-      - name: Upload XCFramework
+      - name: Upload XCFramework artifact
         uses: actions/upload-artifact@v4
         with:
           name: WeChatOpenSDK.xcframework

@@ -37,7 +37,7 @@ A GitHub Actions workflow is available for building on macOS runners:
 
 1. Go to **Actions** > **Build XCFramework**
 2. Click **Run workflow**
-3. Optionally provide a custom SDK download URL
+3. Optionally provide an SDK download URL (must be an HTTPS `.zip` URL on `dldir1.qq.com`)
 4. Download the built xcframework from the workflow artifacts
 
 ## Updating to a New SDK Version

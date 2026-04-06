@@ -119,9 +119,12 @@ jobs:
           RELEASE_URL="https://github.com/${{ github.repository }}/releases/download/${VERSION}/WeChatOpenSDK.xcframework.zip"
 
           # Download release asset and compute checksum from it
-          curl -L --fail -o release.zip "$RELEASE_URL"
-          CHECKSUM=$(swift package compute-checksum release.zip)
-          rm -f release.zip
+          gh release download "$VERSION" \
+            --pattern "WeChatOpenSDK.xcframework.zip" \
+            --dir . \
+            --clobber
+          CHECKSUM=$(swift package compute-checksum WeChatOpenSDK.xcframework.zip)
+          rm -f WeChatOpenSDK.xcframework.zip
 
           echo "Release URL: $RELEASE_URL"
           echo "Computed checksum: $CHECKSUM"

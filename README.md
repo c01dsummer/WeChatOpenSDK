@@ -37,12 +37,22 @@ A GitHub Actions workflow is available for building on macOS runners:
 
 1. Go to **Actions** > **Build XCFramework**
 2. Click **Run workflow**
-3. Optionally provide an SDK download URL (must be an HTTPS `.zip` URL on `dldir1.qq.com`)
-4. Download the built xcframework from the workflow artifacts
+3. Provide the required `version` input (e.g. `2.0.5`)
+4. If building a non-default SDK version, also provide:
+   - `sdk_url` — an HTTPS `.zip` URL on `dldir1.qq.com`
+   - `sdk_checksum` — SHA-256 checksum of the SDK zip
+5. The workflow builds the xcframework, creates a GitHub release, and auto-updates `Package.swift` with the correct URL and checksum
 
 ## Updating to a New SDK Version
 
-1. Run the CI workflow (or build locally) with the new SDK
+### Via CI workflow
+
+1. Run the **Build XCFramework** workflow with the new version, SDK URL, and checksum
+2. The workflow automatically builds, creates/updates the release, and commits the updated `Package.swift`
+
+### Via local/manual build
+
+1. Build locally with `create-xcframework.sh`
 2. Create a new GitHub release with the built `WeChatOpenSDK.xcframework.zip`
 3. Update the URL and checksum in `Package.swift`:
    ```

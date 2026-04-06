@@ -89,8 +89,8 @@ swift package compute-checksum WeChatOpenSDK.xcframework.zip
 
 - **Apple Silicon simulator issue (`ios-arm64-simulator`)**: this is an upstream SDK limitation; prefer using a real iPhone device for local debug when needed.
 - **Checksum mismatch**: recompute with `swift package compute-checksum WeChatOpenSDK.xcframework.zip` and update `Package.swift`.
-- **CI download failure**: verify `sdk_url` uses HTTPS and points to `dldir1.qq.com`, and ensure `sdk_checksum` matches the downloaded zip.
+- **CI download failure**: verify `sdk_url` uses HTTPS, points to `dldir1.qq.com`, and ends with `.zip`, and ensure `sdk_checksum` matches the downloaded zip.
 
 ## Quick Verification
 
-After package integration, verify you can import and reference WeChat APIs in your app target, for example `WXApi`.
+After package integration, verify that your app target can `import WeChatOpenSDK` and reference a WeChat API symbol such as `WXApi`.

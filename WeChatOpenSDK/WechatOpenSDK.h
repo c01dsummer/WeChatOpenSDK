@@ -1,9 +1,13 @@
 //
-//  Copyright © Jaguar Land Rover Ltd 2023 All rights reserved.
-//  This software is confidential and proprietary information.
+//  WechatOpenSDK.h
+//  WeChatOpenSDK
+//
+//  Public umbrella header for WeChatOpenSDK.
 //
 
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 //! Project version number for WeChatOpenSDK.
 FOUNDATION_EXPORT double WeChatOpenSDKVersionNumber;
@@ -13,6 +17,8 @@ FOUNDATION_EXPORT const unsigned char WeChatOpenSDKVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <WeChatOpenSDK/PublicHeader.h>
 
-#import "WXApi.h"
-#import "WXApiObject.h"
-#import "WechatAuthSDK.h"
+#import <WeChatOpenSDK/WXApi.h>
+#import <WeChatOpenSDK/WXApiObject.h>
+#import <WeChatOpenSDK/WechatAuthSDK.h>
+
+NS_ASSUME_NONNULL_END

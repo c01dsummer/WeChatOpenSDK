@@ -1,6 +1,8 @@
 //
-//  Copyright © Jaguar Land Rover Ltd 2023 All rights reserved.
-//  This software is confidential and proprietary information.
+//  WechatOpenSDK.h
+//  WeChatOpenSDK
+//
+//  Public umbrella header for WeChatOpenSDK.
 //
 
 #import <Foundation/Foundation.h>

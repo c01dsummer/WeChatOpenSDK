@@ -6,7 +6,7 @@
 - Adds module support to make integration easier for Swift and Swift Package Manager.
 - Supports `ios-arm64` and `ios-x86_64-simulator`.
 - Does **not** support `ios-arm64-simulator` because the upstream `libWeChatSDK.a` does not provide that slice.
-- Requires iOS 13+ and Xcode 13+.
+- Requires iOS 13+ and Xcode 15+ (Swift 5.9 toolchain).
 
 ## Version Mapping
 
@@ -40,7 +40,7 @@ dependencies: [
 
 #### Prerequisites
 
-- Xcode 13+
+- Xcode 15+ (Swift 5.9)
 - Swift toolchain available in terminal (`swift`)
 - WeChat iOS SDK package downloaded from WeChat Open Platform
 

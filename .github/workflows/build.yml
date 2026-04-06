@@ -39,6 +39,12 @@ jobs:
             exit 1
           fi
 
+          # If either sdk_url or sdk_checksum is provided, both must be provided
+          if { [ -n "$SDK_URL" ] && [ -z "$SDK_CHECKSUM" ]; } || { [ -z "$SDK_URL" ] && [ -n "$SDK_CHECKSUM" ]; }; then
+            echo "Error: sdk_url and sdk_checksum must be provided together"
+            exit 1
+          fi
+
       - name: Download WeChatSDK
         run: |
           SDK_URL="${{ inputs.sdk_url }}"
@@ -139,12 +145,15 @@ jobs:
           echo "Updated Package.swift:"
           cat Package.swift
 
-          git diff --quiet Package.swift && echo "No change needed" && exit 0
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Package.swift
-          git commit -m "Update Package.swift for $VERSION release"
-          git push origin HEAD:${{ github.ref_name }}
+          if git diff --quiet Package.swift; then
+            echo "No change needed"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add Package.swift
+            git commit -m "Update Package.swift for $VERSION release"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
 
       - name: Upload XCFramework artifact
         uses: actions/upload-artifact@v4

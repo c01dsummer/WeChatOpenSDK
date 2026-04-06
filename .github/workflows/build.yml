@@ -108,9 +108,9 @@ jobs:
           echo "Release URL: $RELEASE_URL"
           echo "Computed checksum: $CHECKSUM"
 
-          # Update Package.swift version and checksum variables
-          sed -i '' "s|let version = \".*\"|let version = \"$VERSION\"|" Package.swift
-          sed -i '' "s|let checksum = \"[0-9a-f]\{64\}\"|let checksum = \"$CHECKSUM\"|" Package.swift
+          # Update Package.swift URL and checksum (lines marked with CI comments)
+          sed -i '' "s|url: \".*WeChatOpenSDK.xcframework.zip\"|url: \"$RELEASE_URL\"|" Package.swift
+          sed -i '' "s|checksum: \"[0-9a-f]\{64\}\"|checksum: \"$CHECKSUM\"|" Package.swift
 
           echo "Updated Package.swift:"
           cat Package.swift

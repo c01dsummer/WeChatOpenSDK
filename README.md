@@ -13,7 +13,6 @@
 | WeChatOpenSDK | WeChat SDK |
 |---------------|------------|
 | 2.0.5         | 2.0.5      |
-| 2.0.2         | 2.0.2      |
 
 > Source of truth for distributed binaries is `Package.swift` (`binaryTarget` URL + checksum).
 

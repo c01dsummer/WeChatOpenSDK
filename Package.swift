@@ -15,7 +15,7 @@ let package = Package(
             // [CI:URL]
             url: "https://github.com/c01dsummer/WeChatOpenSDK/releases/download/2.0.5/WeChatOpenSDK.xcframework.zip",
             // [CI:CHECKSUM]
-            checksum: "2c4de689451d58987b05260d774fcd42c57719e6ce43e933d346d1b400f24409"
+            checksum: "6d4f3c22ccd13a3e1f81c5ed9db713b8d27b15a8c679fc7a0a5d6ad2359a60e1"
         )
     ]
 )

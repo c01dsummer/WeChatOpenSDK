@@ -152,7 +152,7 @@ jobs:
             BRANCH="ci/update-package-swift-${VERSION}"
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git checkout -b "$BRANCH"
+            git checkout -B "$BRANCH"
             git add Package.swift
             git commit -m "Update Package.swift for $VERSION release"
             git push --force origin "$BRANCH"

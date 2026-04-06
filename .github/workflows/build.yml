@@ -19,7 +19,7 @@ permissions:
 env:
   DEFAULT_VERSION: "2.0.5"
   DEFAULT_SDK_URL: "https://dldir1.qq.com/WechatWebDev/opensdk/OpenSDK2.0.5.zip"
-  DEFAULT_SDK_CHECKSUM: "b610b8585dc1cbb58efab38e0f9dca6abf2449f3aecdb23e4e238df093382bab"
+  DEFAULT_SDK_CHECKSUM: "370884caf65b4220fb739c162200b95e991fb3b1a8b32c4c601c31bcaf9029c2"
 
 jobs:
   build:

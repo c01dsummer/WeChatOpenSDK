@@ -7,8 +7,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 //! Project version number for WeChatOpenSDK.
 FOUNDATION_EXPORT double WeChatOpenSDKVersionNumber;
 
@@ -20,5 +18,3 @@ FOUNDATION_EXPORT const unsigned char WeChatOpenSDKVersionString[];
 #import <WeChatOpenSDK/WXApi.h>
 #import <WeChatOpenSDK/WXApiObject.h>
 #import <WeChatOpenSDK/WechatAuthSDK.h>
-
-NS_ASSUME_NONNULL_END
